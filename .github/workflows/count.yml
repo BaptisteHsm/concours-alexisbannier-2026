@@ -1,12 +1,16 @@
 name: Comptage des votes
 
+# Une exécution tourne ~5h45 et recompte toutes les 6 minutes,
+# puis relance elle-même la suivante. La planification horaire
+# sert seulement de filet de sécurité si la chaîne s'interrompt.
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: comptage
@@ -15,7 +19,7 @@ concurrency:
 jobs:
   count:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 355
     steps:
       - uses: actions/checkout@v5
 
@@ -23,21 +27,30 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Recompter
+      - name: Recompter toutes les 6 minutes
         env:
           IG_SESSIONID: ${{ secrets.IG_SESSIONID }}
           IG_CSRFTOKEN: ${{ secrets.IG_CSRFTOKEN }}
-        run: python count.py
-
-      - name: Publier le résultat
         run: |
-          if git diff --quiet tally.json; then
-            echo "Pas de changement."
-            exit 0
-          fi
           git config user.name "comptage-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tally.json
-          git commit -m "Comptage $(TZ=Europe/Paris date '+%d/%m %H:%M')"
-          git pull --rebase
-          git push
+          END=$(date -d "2026-10-24T20:00:00+02:00" +%s)
+          STOP=$((SECONDS + 20400))
+          while [ $SECONDS -lt $STOP ] && [ "$(date +%s)" -lt "$END" ]; do
+            python count.py || true
+            if ! git diff --quiet tally.json; then
+              git add tally.json
+              git commit -q -m "Comptage $(TZ=Europe/Paris date '+%d/%m %H:%M')"
+              git pull -q --rebase && git push -q || echo "::warning::Envoi impossible, nouvel essai au prochain tour."
+            fi
+            sleep 360
+          done
+
+      - name: Relancer la suite
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$(date +%s)" -lt "$(date -d '2026-10-24T20:00:00+02:00' +%s)" ]; then
+            gh workflow run count.yml --ref main --repo "$GITHUB_REPOSITORY"
+          fi

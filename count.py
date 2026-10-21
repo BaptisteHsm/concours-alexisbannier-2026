@@ -132,14 +132,14 @@ def main():
     with open(TALLY, encoding="utf-8") as f:
         old = json.load(f)
     stamp = now.replace(microsecond=0).isoformat()
-    new = dict(old)
-    new["checked"] = stamp
-    if votes != old.get("votes"):
-        new.update(updated=stamp, votes=votes,
-                   prevUpdated=old.get("updated"), prev=old.get("votes", {}))
+    print(f"{len(comments)} commentaires, {sum(votes.values())} votes : {votes}")
+    if votes == old.get("votes"):
+        print("Aucun nouveau vote.")
+        return 0
+    new = dict(old, checked=stamp, updated=stamp, votes=votes,
+               prevUpdated=old.get("updated"), prev=old.get("votes", {}))
     with open(TALLY, "w", encoding="utf-8") as f:
         json.dump(new, f, ensure_ascii=False, separators=(",", ":"))
-    print(f"{len(comments)} commentaires, {sum(votes.values())} votes : {votes}")
     return 0
 
 
