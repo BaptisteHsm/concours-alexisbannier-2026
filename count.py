@@ -50,9 +50,12 @@ def count(comments):
 class Instagram:
     def __init__(self, sessionid):
         jar = http.cookiejar.CookieJar()
-        jar.set_cookie(http.cookiejar.Cookie(
-            0, "sessionid", sessionid, None, False, ".instagram.com", True, True,
-            "/", True, True, None, False, None, None, {}))
+        user_id = urllib.parse.unquote(sessionid).split(":")[0]
+        csrf = os.environ.get("IG_CSRFTOKEN", "").strip() or "missing"
+        for name, value in (("sessionid", sessionid), ("ds_user_id", user_id), ("csrftoken", csrf)):
+            jar.set_cookie(http.cookiejar.Cookie(
+                0, name, value, None, False, ".instagram.com", True, True,
+                "/", True, True, None, False, None, None, {}))
         self.opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -61,6 +64,12 @@ class Instagram:
             "X-Requested-With": "XMLHttpRequest",
             "Accept": "application/json",
             "Referer": "https://www.instagram.com/p/Dew8r4MjIzV/",
+            "X-CSRFToken": csrf,
+            "X-ASBD-ID": "129477",
+            "X-IG-WWW-Claim": "0",
+            "Sec-Fetch-Site": "same-origin",
+            "Sec-Fetch-Mode": "cors",
+            "Sec-Fetch-Dest": "empty",
         }
 
     def get(self, path, params=None):
@@ -69,7 +78,12 @@ class Instagram:
             url += "?" + urllib.parse.urlencode(params)
         req = urllib.request.Request(url, headers=self.headers)
         with self.opener.open(req, timeout=30) as r:
-            return json.loads(r.read().decode("utf-8"))
+            body = r.read().decode("utf-8", "replace")
+            try:
+                return json.loads(body)
+            except ValueError:
+                snippet = " ".join(body[:300].split())
+                raise RuntimeError(f"réponse non JSON (HTTP {r.status}, URL finale {r.geturl()}) : {snippet}")
 
     def comments(self):
         out, min_id = {}, None
