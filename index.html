@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Concours Mariés 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single centred column — scoreboard header, three key figures, then the full ranking as proportional rows */
+:root{
+  --bg:#f6f5f8; --surface:#ffffff; --ink:#1f1b2c; --muted:#6b6579; --line:#e4e0ea;
+  --accent:#a8406a; --accent-soft:#f3e3ea; --gold:#a97a1c; --up:#2f7d57;
+  --f-display:"Gloock",Georgia,serif; --f-body:"DM Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16131d; --surface:#201c2a; --ink:#f1edf6; --muted:#a59fb3; --line:#332d40;
+  --accent:#e07ba3; --accent-soft:#3a2431; --gold:#e0b456; --up:#6fcf9b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#16131d; --surface:#201c2a; --ink:#f1edf6; --muted:#a59fb3; --line:#332d40;
+  --accent:#e07ba3; --accent-soft:#3a2431; --gold:#e0b456; --up:#6fcf9b; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding-block:32px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-direction:column;gap:6px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(32px,7vw,48px);line-height:1.05;margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:0;max-width:60ch}
+.live{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 0 0 var(--up);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--up) 60%,transparent)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}.bar i{transition:none!important}}
+.figs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.fig b{font-family:var(--f-mono);font-size:24px;font-weight:500;font-variant-numeric:tabular-nums}
+.fig span{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.fig small{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:540px){.figs{grid-template-columns:1fr 1fr}.fig.lead{grid-column:1/-1}}
+ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+li{display:grid;grid-template-columns:2.2em 2.6em minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 12px;border-radius:10px}
+li.top{background:var(--surface);border:1px solid var(--line)}
+li.top:first-child{border-color:var(--gold)}
+.rk{font-family:var(--f-mono);font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+li.top:first-child .rk{color:var(--gold)}
+.no{font-family:var(--f-display);font-size:22px;width:2.6rem;height:2.6rem;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);line-height:1}
+li.zero .no{background:transparent;border:1px dashed var(--line);color:var(--muted)}
+.mid{display:flex;flex-direction:column;gap:6px;min-width:0}
+.nm{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px;transition:width .6s ease}
+li.top:first-child .bar i{background:var(--gold)}
+.vt{text-align:right;display:flex;flex-direction:column;align-items:flex-end;min-width:4.5em}
+.vt b{font-family:var(--f-mono);font-weight:500;font-size:18px;font-variant-numeric:tabular-nums}
+.vt small{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.vt .d{color:var(--up);font-weight:700}
+footer{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--line);padding-top:16px}
+footer a{color:var(--accent)}
+*{box-sizing:border-box}body{margin:0}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Alexis Bannier Photographie · Vote Instagram</div>
+    <h1>Concours Mariés 2026</h1>
+    <p class="sub">Le couple qui récolte le plus de votes en commentaire gagne une séance photo au Mont‑Saint‑Michel. Un vote par compte.</p>
+    <div class="live"><span class="dot"></span><span id="upd">Mise à jour…</span></div>
+  </header>
+
+  <section class="figs" aria-label="Chiffres clés">
+    <div class="fig lead"><span>En tête</span><b id="leadNo">–</b><small id="leadNm">–</small></div>
+    <div class="fig"><span>Votes comptés</span><b id="total">–</b><small id="totalD">&nbsp;</small></div>
+    <div class="fig"><span>Fin des votes</span><b id="cd">–</b><small>dim. 24 oct. à 19h</small></div>
+  </section>
+
+  <ol id="rank" aria-label="Classement"></ol>
+
+  <footer>
+    <span>Comptage automatique des commentaires du <a href="https://www.instagram.com/p/Dew8r4MjIzV/" target="_blank" rel="noopener">post Instagram</a>. Chaque compte n'est compté qu'une fois (premier vote). Les @mentions sont ignorées.</span>
+    <span id="evo">&nbsp;</span>
+  </footer>
+</div>
+
+
+<script>
+const COUPLES={1:"Estelle & Kevin",2:"Gwenaïk & Pierre",3:"Laure & Baptiste",4:"Sidney & Jordy",5:"Julie & Benjamin",6:"Clémence & Nathan",7:"Edwina & Maxime",8:"Johanne & Florent",9:"Mathilde & Jean-Hubert",10:"Alexandra & Raymond",11:"Alexandre & Adeline",12:"Justine & Alexandre",13:"Coline & Julien",14:"Maëva & Samuel",15:"Noémie & Sébastien",16:"Julie & Corentin",17:"Constance & Alexis",18:"Pauline & Alexis",19:"Helen & Robin",20:"Mathilde & Quentin"};
+const END=Date.parse("2026-10-24T19:00:00+02:00");
+let state={updated:new Date().toISOString(),votes:{}};
+const $=id=>document.getElementById(id);
+const fmtT=iso=>new Date(iso).toLocaleString("fr-FR",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZone:"Europe/Paris"});
+
+function render(){
+  const v=state.votes||{},p=state.prev||{};
+  const rows=Object.keys(COUPLES).map(n=>({n:+n,c:v[n]||0,d:(v[n]||0)-(p[n]||0)}));
+  rows.sort((a,b)=>b.c-a.c||a.n-b.n);
+  const total=rows.reduce((s,r)=>s+r.c,0),max=rows[0].c||1;
+  if(!total){$("rank").innerHTML="";return}
+  const prevTotal=Object.values(p).reduce((s,x)=>s+x,0);
+  let rank=0,last=null;
+  $("rank").innerHTML=rows.map((r,i)=>{
+    if(r.c!==last){rank=i+1;last=r.c}
+    const pct=total?Math.round(r.c*1000/total)/10:0;
+    const cls=[r.c>0&&rank<=3?"top":"",r.c===0?"zero":""].join(" ");
+    return `<li class="${cls}"><span class="rk">${rank}</span><span class="no">${r.n}</span>
+      <span class="mid"><span class="nm">${COUPLES[r.n]}</span><span class="bar"><i style="width:${(r.c/max*100).toFixed(1)}%"></i></span></span>
+      <span class="vt"><b>${r.c}</b><small>${r.d>0?`<span class="d">+${r.d}</span> · `:""}${pct.toLocaleString("fr-FR")} %</small></span></li>`;
+  }).join("");
+  $("leadNo").textContent="N° "+rows[0].n;
+  $("leadNm").textContent=COUPLES[rows[0].n]+" · "+(rows[0].c-rows[1].c)+" votes d'avance";
+  $("total").textContent=total;
+  $("totalD").textContent=prevTotal&&total>prevTotal?`+${total-prevTotal} depuis la dernière mise à jour`:" ";
+  $("upd").textContent=Object.keys(state.votes||{}).length?"Dernier comptage : "+fmtT(state.updated)+(state.checked?" · vérifié "+fmtT(state.checked):""):"Chargement…";
+  $("evo").textContent=state.prevUpdated?"Évolutions calculées depuis le comptage du "+fmtT(state.prevUpdated)+".":" ";
+}
+function tick(){
+  const ms=END-Date.now();
+  if(ms<=0){$("cd").textContent="Terminé";return}
+  const h=Math.floor(ms/3.6e6),d=Math.floor(h/24);
+  $("cd").textContent=d>0?`${d} j ${h%24} h`:`${h} h ${Math.floor(ms%3.6e6/6e4)} min`;
+}
+async function load(){
+  try{
+    const r=await fetch("tally.json?t="+Date.now(),{cache:"no-store"});
+    if(!r.ok)return;
+    const d=await r.json();
+    if(d&&d.votes){state=d;render()}
+  }catch(e){}
+}
+tick();setInterval(tick,30000);
+load();setInterval(load,60000);
+</script>
+</body>
+</html>
