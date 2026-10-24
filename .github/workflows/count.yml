@@ -34,7 +34,7 @@ jobs:
         run: |
           git config user.name "comptage-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          END=$(date -d "2026-10-24T20:00:00+02:00" +%s)
+          END=$(date -d "2026-10-25T20:00:00+01:00" +%s)
           STOP=$((SECONDS + 20400))
           while [ $SECONDS -lt $STOP ] && [ "$(date +%s)" -lt "$END" ]; do
             python count.py || true
@@ -51,6 +51,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if [ "$(date +%s)" -lt "$(date -d '2026-10-24T20:00:00+02:00' +%s)" ]; then
+          if [ "$(date +%s)" -lt "$(date -d '2026-10-25T20:00:00+01:00' +%s)" ]; then
             gh workflow run count.yml --ref main --repo "$GITHUB_REPOSITORY"
           fi

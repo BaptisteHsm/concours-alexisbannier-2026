@@ -15,11 +15,12 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+from zoneinfo import ZoneInfo
 import http.cookiejar
 
 MEDIA_ID = "4012974166055357653"
-END = dt.datetime(2026, 10, 24, 19, 0, tzinfo=dt.timezone(dt.timedelta(hours=2)))
-PARIS = dt.timezone(dt.timedelta(hours=2))  # heure d'été jusqu'au 25/10/2026
+PARIS = ZoneInfo("Europe/Paris")
+END = dt.datetime(2026, 10, 25, 19, 0, tzinfo=PARIS)  # dimanche 25 octobre, 19h (heure d'hiver)
 TALLY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tally.json")
 
 MENTION = re.compile(r"@[\w.]+")

@@ -70,7 +70,7 @@ footer a{color:var(--accent)}
   <section class="figs" aria-label="Chiffres clés">
     <div class="fig lead"><span>En tête</span><b id="leadNo">–</b><small id="leadNm">–</small></div>
     <div class="fig"><span>Votes comptés</span><b id="total">–</b><small id="totalD">&nbsp;</small></div>
-    <div class="fig"><span>Fin des votes</span><b id="cd">–</b><small>dim. 24 oct. à 19h</small></div>
+    <div class="fig"><span>Fin des votes</span><b id="cd">–</b><small>dim. 25 oct. à 19h</small></div>
   </section>
 
   <ol id="rank" aria-label="Classement"></ol>
@@ -84,7 +84,7 @@ footer a{color:var(--accent)}
 
 <script>
 const COUPLES={1:"Estelle & Kevin",2:"Gwenaïk & Pierre",3:"Laure & Baptiste",4:"Sidney & Jordy",5:"Julie & Benjamin",6:"Clémence & Nathan",7:"Edwina & Maxime",8:"Johanne & Florent",9:"Mathilde & Jean-Hubert",10:"Alexandra & Raymond",11:"Alexandre & Adeline",12:"Justine & Alexandre",13:"Coline & Julien",14:"Maëva & Samuel",15:"Noémie & Sébastien",16:"Julie & Corentin",17:"Constance & Alexis",18:"Pauline & Alexis",19:"Helen & Robin",20:"Mathilde & Quentin"};
-const END=Date.parse("2026-10-24T19:00:00+02:00");
+const END=Date.parse("2026-10-25T19:00:00+01:00");
 let state={updated:new Date().toISOString(),votes:{}};
 const $=id=>document.getElementById(id);
 const fmtT=iso=>new Date(iso).toLocaleString("fr-FR",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZone:"Europe/Paris"});
